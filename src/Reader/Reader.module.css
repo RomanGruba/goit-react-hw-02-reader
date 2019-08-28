@@ -28,7 +28,7 @@ body {
   box-shadow: 0 6px 28px 0 rgba(24, 52, 117, 0.2);
 }
 
-.publicationH2 {
+.publicationTitle {
   font-weight: 500;
   margin-top: 0;
   margin-bottom: 0;
@@ -75,7 +75,7 @@ body {
   cursor: pointer;
 }
 
-.button[disabled] {
+.buttonDisabled {
   pointer-events: none;
   background-color: #bdbdbd;
 }
