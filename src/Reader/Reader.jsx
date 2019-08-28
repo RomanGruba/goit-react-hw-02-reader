@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-import classNames from 'classnames/bind';
 import styles from './Reader.module.css';
 import items from './publications.json';
 import Publication from './Publication';
 import Counter from './Counter';
-
-const cx = classNames.bind(styles);
+import Controls from './Controls';
 
 export default class Reader extends Component {
   constructor(items) {
-    super();
+    super(items);
     this.state = {
       publicationItem: 0,
-      prevBtnDisabled: false,
+      prevBtnDisabled: true,
       nextBtnDisabled: false,
     };
   }
@@ -21,7 +19,7 @@ export default class Reader extends Component {
     this.setState(prevState => {
       const nextBtnDisabled = prevState.publicationItem === 10;
 
-      let prevBtnDisabled = 0;
+      let prevBtnDisabled = false;
       if (this.prevBtnDisabled && prevState.publicationItem === 1) {
         prevBtnDisabled = false;
       }
@@ -36,7 +34,8 @@ export default class Reader extends Component {
   handleDecrement = () => {
     this.setState(prevState => {
       const prevBtnDisabled = prevState.publicationItem === 1;
-      let nextBtnDisabled = 0;
+
+      let nextBtnDisabled = false;
       if (this.nextBtnDisabled && prevState.publicationItem === 10) {
         nextBtnDisabled = false;
       }
@@ -50,35 +49,17 @@ export default class Reader extends Component {
 
   render() {
     const currentItem = this.state.publicationItem;
-    const { prevBtnDisabled } = this.state;
-    const { nextBtnDisabled } = this.state;
+    const { prevBtnDisabled, nextBtnDisabled } = this.state;
     return (
       <div className={styles.reader}>
         <Publication currentItem={currentItem} items={items} />
         <Counter currentItem={currentItem} items={items} />
-
-        <section className={styles.controls}>
-          <button
-            type="button"
-            onClick={this.handleDecrement}
-            className={cx({
-              button: true,
-              buttonDisabled: prevBtnDisabled === true,
-            })}
-          >
-            Назад
-          </button>
-          <button
-            type="button"
-            className={cx({
-              button: true,
-              buttonDisabled: nextBtnDisabled === true,
-            })}
-            onClick={this.handleIncrement}
-          >
-            Вперед
-          </button>
-        </section>
+        <Controls
+          onIncrement={this.handleIncrement}
+          onDecrement={this.handleDecrement}
+          prevBtnDisabled={prevBtnDisabled}
+          nextBtnDisabled={nextBtnDisabled}
+        />
       </div>
     );
   }
