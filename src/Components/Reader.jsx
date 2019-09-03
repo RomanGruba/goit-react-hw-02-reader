@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import styles from './Reader.module.css';
 import items from './publications.json';
-import Publication from './Publication';
-import Counter from './Counter';
-import Controls from './Controls';
+import Publication from './Publication/Publication';
+import Counter from './Counter/Counter';
+import Controls from './Controls/Controls';
 
 export default class Reader extends Component {
   constructor(items) {
