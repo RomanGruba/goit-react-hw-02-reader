@@ -16,33 +16,36 @@ export default class Reader extends Component {
   }
 
   handleIncrement = () => {
+    const beforeLast = this.props.items.length - 2;
     this.setState(prevState => {
-      const nextBtnDisabled = prevState.publicationItem === 10;
+      const nextBtnD = prevState.publicationItem === beforeLast;
 
-      let prevBtnDisabled = false;
+      let prevBtnD = false;
       if (this.prevBtnDisabled && prevState.publicationItem === 1) {
-        prevBtnDisabled = false;
+        prevBtnD = false;
       }
+
       return {
         publicationItem: prevState.publicationItem + 1,
-        prevBtnDisabled,
-        nextBtnDisabled,
+        prevBtnDisabled: prevBtnD,
+        nextBtnDisabled: nextBtnD,
       };
     });
   };
 
   handleDecrement = () => {
+    const beforeLast = this.props.items.length - 2;
     this.setState(prevState => {
-      const prevBtnDisabled = prevState.publicationItem === 1;
+      const prevBtnD = prevState.publicationItem === 1;
 
-      let nextBtnDisabled = false;
-      if (this.nextBtnDisabled && prevState.publicationItem === 10) {
-        nextBtnDisabled = false;
+      let nextBtnD = false;
+      if (this.nextBtnDisabled && prevState.publicationItem === beforeLast) {
+        nextBtnD = false;
       }
       return {
         publicationItem: prevState.publicationItem - 1,
-        prevBtnDisabled,
-        nextBtnDisabled,
+        prevBtnDisabled: prevBtnD,
+        nextBtnDisabled: nextBtnD,
       };
     });
   };
